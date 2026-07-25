@@ -1305,24 +1305,26 @@ def main() -> None:
 
                 rel_inputs: dict[str, int] = {}
                 for option in RELATIONSHIP_STATUS_OPTIONS:
+                    rel_default_value = int(relationship_point_map.get(option, RELATIONSHIP_STATUS_DEFAULT_POINTS[option]))
                     rel_inputs[option] = int(
                         st.number_input(
                             f"Relationship status: {option}",
                             min_value=-30,
                             max_value=30,
-                            value=int(relationship_point_map.get(option, RELATIONSHIP_STATUS_DEFAULT_POINTS[option])),
+                            value=max(-30, min(30, rel_default_value)),
                             step=1,
                         )
                     )
 
                 look_inputs: dict[str, int] = {}
                 for option in LOOKING_FOR_OPTIONS:
+                    look_default_value = int(looking_for_point_map.get(option, LOOKING_FOR_DEFAULT_POINTS[option]))
                     look_inputs[option] = int(
                         st.number_input(
                             f"Looking for: {option}",
                             min_value=-30,
                             max_value=30,
-                            value=int(looking_for_point_map.get(option, LOOKING_FOR_DEFAULT_POINTS[option])),
+                            value=max(-30, min(30, look_default_value)),
                             step=1,
                         )
                     )
@@ -1340,47 +1342,53 @@ def main() -> None:
 
             with st.form("global_spicy_points"):
                 st.caption("Spicy-time event weights used for each new spicy-time rating.")
+                spicy_foreplay_default = int(
+                    spicy_point_map.get("spicy_foreplay", SPICY_SETTINGS_DEFAULT_POINTS["spicy_foreplay"])
+                )
                 spicy_foreplay_points = st.number_input(
                     "Foreplay points per rating point",
                     min_value=-10,
                     max_value=10,
-                    value=int(spicy_point_map.get("spicy_foreplay", SPICY_SETTINGS_DEFAULT_POINTS["spicy_foreplay"])),
+                    value=max(-10, min(10, spicy_foreplay_default)),
                     step=1,
+                )
+                spicy_connection_default = int(
+                    spicy_point_map.get(
+                        "spicy_connection_strength",
+                        SPICY_SETTINGS_DEFAULT_POINTS["spicy_connection_strength"],
+                    )
                 )
                 spicy_connection_points = st.number_input(
                     "Connection points per rating point",
                     min_value=-10,
                     max_value=10,
-                    value=int(
-                        spicy_point_map.get(
-                            "spicy_connection_strength",
-                            SPICY_SETTINGS_DEFAULT_POINTS["spicy_connection_strength"],
-                        )
-                    ),
+                    value=max(-10, min(10, spicy_connection_default)),
                     step=1,
+                )
+                spicy_orgasm_count_default = int(
+                    spicy_point_map.get(
+                        "spicy_orgasm_count",
+                        SPICY_SETTINGS_DEFAULT_POINTS["spicy_orgasm_count"],
+                    )
                 )
                 spicy_orgasm_count_points = st.number_input(
                     "Orgasm count points per orgasm",
                     min_value=-10,
                     max_value=10,
-                    value=int(
-                        spicy_point_map.get(
-                            "spicy_orgasm_count",
-                            SPICY_SETTINGS_DEFAULT_POINTS["spicy_orgasm_count"],
-                        )
-                    ),
+                    value=max(-10, min(10, spicy_orgasm_count_default)),
                     step=1,
+                )
+                spicy_orgasm_intensity_default = int(
+                    spicy_point_map.get(
+                        "spicy_orgasm_intensity",
+                        SPICY_SETTINGS_DEFAULT_POINTS["spicy_orgasm_intensity"],
+                    )
                 )
                 spicy_orgasm_intensity_points = st.number_input(
                     "Orgasm intensity points per rating point",
                     min_value=-10,
                     max_value=10,
-                    value=int(
-                        spicy_point_map.get(
-                            "spicy_orgasm_intensity",
-                            SPICY_SETTINGS_DEFAULT_POINTS["spicy_orgasm_intensity"],
-                        )
-                    ),
+                    value=max(-10, min(10, spicy_orgasm_intensity_default)),
                     step=1,
                 )
 
